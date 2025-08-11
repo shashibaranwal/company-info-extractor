@@ -33,7 +33,7 @@ prompt = ChatPromptTemplate.from_template(
     Input paragraph: {paragraph}
 
     Return ONLY the extracted information as a valid JSON string:
-    {{"company_name": "<string>", "founding_date": "<YYYY-MM-DD>", "founders": "<comma-separated string>"}}
+    {{"S.No.": "<int>", "company_name": "<string>", "founding_date": "<YYYY-MM-DD>", "founders": "<comma-separated string>"}}
     """
 )
 
@@ -53,7 +53,7 @@ def validate_and_fix_date(date_str):
         raise ValueError(f"Invalid date format: {date_str}")
 
 # Write CSV safely (append mode)
-def write_to_csv(data, filename="company-info.csv"):
+def write_to_csv(data, filename="company_info.csv"):
     df = pd.DataFrame(data)
     # Append if file exists
     if os.path.exists(filename):
@@ -91,7 +91,7 @@ def csv_tool_func(input_data):
                 raise ValueError("No JSON found in input string")
         else:
             parsed = input_data
-        write_to_csv([parsed], "company-info-agent.csv")
+        write_to_csv([parsed], "company_info_agent.csv")
     except Exception as e:
         return f"Error writing CSV: {e}"
     return "Data saved to CSV"
